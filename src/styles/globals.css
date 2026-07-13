@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Caveat:wght@500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+
+  /* PERSONALIZE THIS: swap these to change the whole theme's mood.
+     The whole site now shares the constellation section's night sky:
+     a deep midnight-blue base everywhere, with warm gold stars and
+     small cream "paper note" surfaces (moon-cream) as tactile pops. */
+  --paper: #141935;
+  --paper-dark: #1c2348;
+  --paper-night: #141935;
+  --ink: #eef0f6;
+  --muted-ink: #9aa6c9;
+  --rose: #b6c6ef;
+  --burgundy: #3d4a7a;
+  --sage: #8fa8c9;
+  --faded-blue: #9fb8d9;
+  --midnight: #1f2547;
+  --saturn-gold: #c9a86a;
+  --moon-cream: #f3ecd9;
+  --tape: #c7d0e6;
+  --shadow: rgba(0, 0, 0, 0.4);
+  --star-glow: rgba(243, 230, 200, 0.9);
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  overscroll-behavior-y: none;
+}
+
+body {
+  font-family: 'Lora', Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
+}
+
+::selection {
+  background: var(--rose);
+  color: var(--paper);
+}
+
+/* visible focus styles everywhere, keyboard first */
+:focus-visible {
+  outline: 3px solid var(--faded-blue);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.font-hand {
+  font-family: 'Caveat', cursive;
+}
+
+.font-serif-heading {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+/* Layered night-paper texture, built entirely from CSS gradients (no external images).
+   Identical in spirit to .bg-night-paper-texture below — both now share the same
+   deep midnight base, so every section reads as one continuous sky. */
+.bg-paper-texture {
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.06) 0, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.04) 0, transparent 45%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.015) 0px, transparent 2px, transparent 4px);
+}
+
+.bg-night-paper-texture {
+  background-color: var(--paper-night);
+  background-image:
+    radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.06) 0, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.04) 0, transparent 45%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.015) 0px, transparent 2px, transparent 4px);
+}
+
+.torn-edge-bottom {
+  position: relative;
+}
+.torn-edge-bottom::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 10px;
+  background: inherit;
+  clip-path: polygon(
+    0% 0%, 4% 100%, 8% 20%, 13% 90%, 18% 10%, 23% 80%, 28% 15%, 33% 95%,
+    38% 25%, 43% 85%, 48% 5%, 53% 90%, 58% 20%, 63% 100%, 68% 10%, 73% 80%,
+    78% 15%, 83% 90%, 88% 25%, 93% 95%, 100% 0%, 100% 100%, 0 100%
+  );
+}
+
+.tape-corner {
+  position: absolute;
+  width: 3.2rem;
+  height: 1.4rem;
+  background: linear-gradient(120deg, var(--tape), #f4e9cc);
+  opacity: 0.75;
+  box-shadow: 0 1px 3px var(--shadow);
+}
+
+/* Reduced motion: keep content usable, remove continuous/large motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.sr-only-decorative {
+  user-select: none;
+}
+
+/* Utility for line-clamped scrapbook labels */
+.text-balance {
+  text-wrap: balance;
+}
